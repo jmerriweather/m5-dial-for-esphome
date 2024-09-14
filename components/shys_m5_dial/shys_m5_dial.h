@@ -7,6 +7,7 @@
 #include "ha_device.h"
 #include "ha_device_light.h"
 #include "ha_device_climate.h"
+#include "ha_device_input_temp.h"
 #include "ha_device_cover.h"
 #include "ha_device_switch.h"
 #include "ha_device_fan.h"
@@ -190,6 +191,13 @@ namespace esphome
         addDevice(climate);
       }
 
+      /**
+       * 
+       */
+      void addInputTemp(const std::string& entity_id, const std::string& name, const std::string& automation_entity_id, const std::string& modes){
+        HaDeviceInputTemp* input = new HaDeviceInputTemp(entity_id, name, automation_entity_id, modes);
+        addDevice(input);
+      }
 
      /**
       * 

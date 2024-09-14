@@ -178,7 +178,77 @@ namespace esphome
                     ESP_LOGI("HA_API", "set temperature: %i for %s", temperature, entity.c_str());
                 }
 
+// ---------------------------------
+//              INPUT NUMBER
+// ---------------------------------
+                void setInputNumber(const std::string& entity, int value) {
+                    esphome::api::HomeassistantServiceResponse resp;
+                    esphome::api::HomeassistantServiceMap resp_kv;
 
+                    resp.service = "input_number.set_value";
+
+                    resp_kv.key = "entity_id";
+                    resp_kv.value = entity.c_str();
+                    resp.data.push_back(resp_kv);
+                    
+                    if(position >= 0){
+                        resp_kv.key = "value";
+                        resp_kv.value = String(value).c_str();
+                        resp.data.push_back(resp_kv);
+                    }
+
+                    esphome::api::global_api_server->send_homeassistant_service_call(resp);
+                    
+                    ESP_LOGI("HA_API", "input number set value %i for %s", value, entity.c_str());
+                }
+
+// ---------------------------------
+//              INPUT BOOLEAN
+// ---------------------------------
+                void turnInputBooleanOn(const std::string& entity){
+                    esphome::api::HomeassistantServiceResponse resp;
+                    esphome::api::HomeassistantServiceMap resp_kv;
+
+                    resp.service = "input_boolean.turn_on";
+
+                    resp_kv.key = "entity_id";
+                    resp_kv.value = entity.c_str();
+                    resp.data.push_back(resp_kv);
+
+                    esphome::api::global_api_server->send_homeassistant_service_call(resp);
+
+                    ESP_LOGI("HA_API", "switch turn on: %s", entity.c_str());
+                }
+
+                void turnInputBooleanOff(const std::string& entity){
+                    esphome::api::HomeassistantServiceResponse resp;
+                    esphome::api::HomeassistantServiceMap resp_kv;
+
+                    resp.service = "input_boolean.turn_off";
+
+                    resp_kv.key = "entity_id";
+                    resp_kv.value = entity.c_str();
+                    resp.data.push_back(resp_kv);
+
+                    esphome::api::global_api_server->send_homeassistant_service_call(resp);
+
+                    ESP_LOGI("HA_API", "switch turn on: %s", entity.c_str());
+                }
+
+                void toggleInputBoolean(const std::string& entity){
+                    esphome::api::HomeassistantServiceResponse resp;
+                    esphome::api::HomeassistantServiceMap resp_kv;
+
+                    resp.service = "input_boolean.toggle";
+
+                    resp_kv.key = "entity_id";
+                    resp_kv.value = entity.c_str();
+                    resp.data.push_back(resp_kv);
+
+                    esphome::api::global_api_server->send_homeassistant_service_call(resp);
+
+                    ESP_LOGI("HA_API", "switch turn on: %s", entity.c_str());
+                }
 
 // ---------------------------------
 //              COVER
