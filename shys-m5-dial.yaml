@@ -27,10 +27,12 @@ external_components:
       url: https://github.com/jmerriweather/m5-dial-for-esphome/
       ref: main
     components: [shys_m5_dial]
+    refresh: 0d
 
 dashboard_import:
   package_import_url: github://jmerriweather/m5-dial-for-esphome/shys-m5-dial.yaml@main
   import_full_config: false
+  refresh: 0d
 
 esp32:
   board: esp32-s3-devkitc-1
