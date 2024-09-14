@@ -191,7 +191,7 @@ namespace esphome
                     resp_kv.value = entity.c_str();
                     resp.data.push_back(resp_kv);
                     
-                    if(position >= 0){
+                    if(value >= 0){
                         resp_kv.key = "value";
                         resp_kv.value = String(value).c_str();
                         resp.data.push_back(resp_kv);

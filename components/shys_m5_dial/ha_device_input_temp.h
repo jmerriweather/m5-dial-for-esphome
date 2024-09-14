@@ -9,9 +9,12 @@ namespace esphome
         class HaDeviceInputTemp: public esphome::shys_m5_dial::HaDevice {
             protected:
                 HaDeviceModeInputTemperature*             modeTemp           = new HaDeviceModeInputTemperature(*this);
+                std::string automation_entity_id = "";
 
             public:
-                HaDeviceInputTemp(const std::string& entity_id, const std::string& name, const std::string& automation_entity_id, const std::string& modes) : HaDevice(entity_id, name, modes) {}
+                HaDeviceInputTemp(const std::string& entity_id, const std::string& name, const std::string& automation_entity_id, const std::string& modes) : HaDevice(entity_id, name, modes) {
+                    this->automation_entity_id = automation_entity_id;
+                }
 
                 void init() override {
                     ESP_LOGD("HA_DEVICE", "Init Input Temp: %s", this->getEntityId().c_str());
