@@ -27,8 +27,13 @@ namespace esphome
                     
                     gfx->startWrite();                      // Secure SPI bus
 
-                    gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , RED);
-                    gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, YELLOW);
+                    if(strcmp(this->getAutomationState().c_str(), "off")==0){
+                        gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
+                        gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
+                    } else {
+                        gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , RED);
+                        gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, YELLOW);
+                    }
 
                     display.setFontsize(3);
                     gfx->drawString(String(currentValue).c_str(),
@@ -42,6 +47,9 @@ namespace esphome
                     gfx->drawString("Temperature",
                                     width / 2,
                                     height / 2 + 50);  
+                    gfx->drawString(this->getAutomationState().c_str(),
+                                    width / 2,
+                                    height / 2 + 80);
 
                     gfx->endWrite();                      // Release SPI bus
                 }
