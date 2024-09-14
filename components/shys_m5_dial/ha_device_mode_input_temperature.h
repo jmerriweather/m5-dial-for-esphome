@@ -8,23 +8,7 @@ namespace esphome
             protected:
                 std::string automation_state = "";
 
-                std::string getAutomationState(){
-                    return this->automation_state;
-                }
-
-                void setAutomationState(const std::string&  newMode){
-                    this->automation_state = newMode;
-                }
-
                 std::string automation_entity_id = "";
-
-                std::string getAutomationEntityID(){
-                    return this->automation_entity_id;
-                }
-
-                void setAutomationEntityID(const std::string& newMode){
-                    this->automation_entity_id = newMode;
-                }
 
                 void sendValueToHomeAssistant(int value) override {
                     haApi.setInputNumber(this->device.getEntityId(), value);
@@ -63,6 +47,22 @@ namespace esphome
                 }
 
             public:
+                std::string getAutomationState(){
+                    return this->automation_state;
+                }
+
+                void setAutomationState(const std::string&  newMode){
+                    this->automation_state = newMode;
+                }
+
+                std::string getAutomationEntityID(){
+                    return this->automation_entity_id;
+                }
+
+                void setAutomationEntityID(const std::string& newMode){
+                    this->automation_entity_id = newMode;
+                }
+
                 HaDeviceModeInputTemperature(HaDevice& device) : HaDeviceMode(device){
                     this->maxValue = 40;
                 }
