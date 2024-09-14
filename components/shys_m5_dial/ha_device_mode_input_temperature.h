@@ -92,7 +92,7 @@ namespace esphome
                         if(this->isValueModified()){
                             // do nothing
                         } else {
-                            this->setAutomationState(state.c_str());
+                            setAutomationState(state);
                             ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
                         }
                     });
