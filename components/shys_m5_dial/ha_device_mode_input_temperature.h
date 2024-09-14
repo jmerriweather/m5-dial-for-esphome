@@ -41,15 +41,12 @@ namespace esphome
                                     height / 2 - 30);                        
                     
                     display.setFontsize(1);
-                    gfx->drawString(this->device.getName().c_str(),
+                    gfx->drawString(this->device.getName().c_str()+ " (" + this->getAutomationState().c_str() + ")",
                                     width / 2,
                                     height / 2 + 20);
                     gfx->drawString("Temperature",
                                     width / 2,
-                                    height / 2 + 50);  
-                    gfx->drawString(this->getAutomationState().c_str(),
-                                    width / 2,
-                                    height / 2 + 80);
+                                    height / 2 + 50);
 
                     gfx->endWrite();                      // Release SPI bus
                 }
