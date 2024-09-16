@@ -93,6 +93,7 @@ namespace esphome
                         ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
 
                         automation_state = state;
+                        this->updateDisplay();
                     });
 
                     std::string attrNameTemp = "";

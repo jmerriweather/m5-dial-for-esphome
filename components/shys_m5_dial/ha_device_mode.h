@@ -179,6 +179,11 @@ namespace esphome
                     this->currentValueModified = true;
                 }
 
+                void updateDisplay(){
+                    this->lastValueUpdate = esphome::millis();
+                    this->currentValueModified = true;
+                }
+
                 void setReceivedValue(int val){
                     //this->value = val;
                     this->setValue(val);
