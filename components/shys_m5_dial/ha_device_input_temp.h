@@ -19,7 +19,7 @@ namespace esphome
                     this->addMode(modeTemp);
 
                     if (this->modeConfig.containsKey("automation_entity")) {
-                        modeTemp->setAutomationEntityID(this->modeConfig["automation_entity"].as<std::string&>());
+                        modeTemp->setAutomationEntityID(this->modeConfig["automation_entity"].as<std::string>());
                     }
 
                     if (this->modeConfig.containsKey("temp_mode")) {
