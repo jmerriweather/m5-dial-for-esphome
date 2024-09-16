@@ -32,8 +32,8 @@ namespace esphome
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
                     } else {
-                        gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , RED);
-                        gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, YELLOW);
+                        gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , GREEN);
+                        gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, DARKGREEN);
                     }
 
                     display.setFontsize(3);
