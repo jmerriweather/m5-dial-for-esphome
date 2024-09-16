@@ -82,16 +82,19 @@ namespace esphome
                     ESP_LOGD("DISPLAY", "Temperature-Modus");
                 }
 
-                void registerHAListener() override {                    
+                void registerHAListener() override {        
+                    ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID().c_str());        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
                                 this->getAutomationEntityID().c_str(),
                                 attrName, 
                                 [this](const std::string &state) {
+                                    
+                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
 
                         if(state.c_str() != this->getAutomationState()){
                             setAutomationState(state.c_str());
-                            ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
+                            //ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
                         }
                     });
 
