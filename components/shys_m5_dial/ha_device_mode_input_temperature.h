@@ -27,7 +27,7 @@ namespace esphome
                     
                     gfx->startWrite();                      // Secure SPI bus
 
-                    if(strcmp(automation_state, "off")==0){
+                    if(strcmp(automation_state.c_str(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
                     } else {
