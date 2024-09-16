@@ -27,7 +27,7 @@ namespace esphome
                     
                     gfx->startWrite();                      // Secure SPI bus
 
-                    if(strcmp(this->getAutomationState().c_str(), "off")==0){
+                    if(strcmp(this->getAutomationState(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
                     } else {
@@ -86,7 +86,7 @@ namespace esphome
                     ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID());        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
-                                this->getAutomationEntityID(),
+                                "input_boolean.living_room_ac_automation",
                                 attrName, 
                                 [this](const std::string &state) {
                                     
