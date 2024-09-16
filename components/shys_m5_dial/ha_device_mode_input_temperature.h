@@ -88,10 +88,8 @@ namespace esphome
                                 this->getAutomationEntityID().c_str(),
                                 attrName, 
                                 [this](const std::string &state) {
-                                    
-                        if(this->isValueModified()){
-                            // do nothing
-                        } else {
+
+                        if(state.c_str() != this->getAutomationState()){
                             setAutomationState(state.c_str());
                             ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
                         }
