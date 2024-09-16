@@ -7,6 +7,7 @@ namespace esphome
         class HaDeviceModeInputTemperature: public esphome::shys_m5_dial::HaDeviceMode {
             protected:
                 std::string automation_state = "";
+                bool refreshNeeded = true;
 
                 std::string automation_entity_id = "input_boolean.living_room_ac_automation";
 
@@ -82,6 +83,12 @@ namespace esphome
                     ESP_LOGD("DISPLAY", "Temperature-Modus");
                 }
 
+                void displayRefreshNeeded() override {
+                    bool refresh = refreshNeeded;
+                    refreshNeeded = false;                    
+                    return refresh;
+                }
+
                 void registerHAListener() override {        
                     ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID());        
                     std::string attrName = "";
@@ -93,7 +100,7 @@ namespace esphome
                         ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
 
                         automation_state = state;
-                        this->updateDisplay();
+                        refreshNeeded = true;
                     });
 
                     std::string attrNameTemp = "";
