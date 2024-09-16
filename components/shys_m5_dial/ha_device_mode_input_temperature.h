@@ -58,19 +58,19 @@ namespace esphome
 
             public:
                 std::string getAutomationState(){
-                    return this->automation_state;
+                    return automation_state;
                 }
 
                 void setAutomationState(const std::string&  newMode){
-                    this->automation_state = newMode;
+                    automation_state = newMode;
                 }
 
                 std::string getAutomationEntityID(){
-                    return this->automation_entity_id;
+                    return automation_entity_id;
                 }
 
                 void setAutomationEntityID(const std::string& newMode){
-                    this->automation_entity_id = newMode;
+                    automation_entity_id = newMode;
                 }
 
                 HaDeviceModeInputTemperature(HaDevice& device) : HaDeviceMode(device){
@@ -92,7 +92,7 @@ namespace esphome
                                     
                         ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
 
-                        setAutomationState(state.c_str());
+                        automation_state = state;
                     });
 
                     std::string attrNameTemp = "";
