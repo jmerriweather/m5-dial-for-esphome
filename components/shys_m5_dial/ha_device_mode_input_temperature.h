@@ -86,7 +86,7 @@ namespace esphome
                     ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID());        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
-                                "input_boolean.living_room_ac_automation",
+                                "input_boolean.living_room_ac_automation".c_str(),
                                 attrName, 
                                 [this](const std::string &state) {
                                     
