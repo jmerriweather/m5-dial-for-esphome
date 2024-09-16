@@ -83,7 +83,7 @@ namespace esphome
                     ESP_LOGD("DISPLAY", "Temperature-Modus");
                 }
 
-                void displayRefreshNeeded() override {
+                void isDisplayRefreshNeeded() override {
                     bool refresh = refreshNeeded;
                     refreshNeeded = false;                    
                     return refresh;
