@@ -131,12 +131,7 @@ namespace esphome
 
                 bool onButton(M5DialDisplay& display, const char * clickType) override {
                     if (strcmp(clickType, BUTTON_SHORT)==0){
-                        if(strcmp(this->getAutomationState().c_str(), "off")==0){
-                            haApi.turnInputBooleanOn(this->getAutomationEntityID());
-                        } else {
-                            haApi.turnInputBooleanOff(this->getAutomationEntityID());
-                        }
-                        
+                        haApi.toggleInputBoolean(this->getAutomationEntityID());
                         return true;
                     } 
                     return false;
