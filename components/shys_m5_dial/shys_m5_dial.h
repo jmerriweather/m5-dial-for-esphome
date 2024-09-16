@@ -194,8 +194,8 @@ namespace esphome
       /**
        * 
        */
-      void addInputTemp(const std::string& entity_id, const std::string& name, const std::string& automation_entity_id, const std::string& modes){
-        HaDeviceInputTemp* input = new HaDeviceInputTemp(entity_id, name, automation_entity_id, modes);
+      void addInputTemp(const std::string& entity_id, const std::string& name, const std::string& modes){
+        HaDeviceInputTemp* input = new HaDeviceInputTemp(entity_id, name, modes);
         addDevice(input);
       }
 

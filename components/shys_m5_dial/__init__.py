@@ -157,9 +157,9 @@ CONFIG_SCHEMA = cv.Schema({
         cv.Optional(CONF_DEVICE_INPUT_TEMPS, default=[]): cv.All([dict({
             cv.Required(CONF_DEVICE_ENTRY_ID): cv.string,
             cv.Required(CONF_DEVICE_ENTRY_NAME): cv.string,
-            cv.Required(CONF_DEVICE_INPUT_TEMPS_AUTOMATION): cv.string,
 
             cv.Optional(CONF_DEVICE_MODES, default=dict()): cv.All(dict({
+                cv.Optional(CONF_DEVICE_INPUT_TEMPS_AUTOMATION): cv.string,
                 cv.Optional(CONF_DEVICE_CLIMATE_TEMP_MODE, default=dict()): cv.All(dict({
                     cv.Optional(CONF_ROTARY_STEP_WIDTH, default=DEFAULT_CLIMATE_ROTARY_STEP_WIDTH): cv.int_range(1, 500),
                     cv.Optional(CONF_DEVICE_MODE_TEMP_MIN_TEMP, default=DEFAULT_WHITE_MIN_TEMP): cv.int_range(0, 500),
@@ -296,7 +296,6 @@ def to_code(config):
             for inputTempEntry in confInputTemps:
                 cg.add(var.addInputTemp(inputTempEntry[CONF_DEVICE_ENTRY_ID], 
                                       inputTempEntry[CONF_DEVICE_ENTRY_NAME], 
-                                      inputTempEntry[CONF_DEVICE_INPUT_TEMPS_AUTOMATION],
                                       json.dumps(inputTempEntry[CONF_DEVICE_MODES])
                                      ))
 
