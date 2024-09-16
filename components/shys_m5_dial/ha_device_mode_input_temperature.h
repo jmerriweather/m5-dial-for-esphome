@@ -8,7 +8,7 @@ namespace esphome
             protected:
                 std::string automation_state = "";
 
-                std::string automation_entity_id = "";
+                std::string automation_entity_id = "input_boolean.living_room_ac_automation";
 
                 void sendValueToHomeAssistant(int value) override {
                     haApi.setInputNumber(this->device.getEntityId(), value);
@@ -86,7 +86,7 @@ namespace esphome
                     ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID());        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
-                                'input_boolean.living_room_ac_automation',
+                                automation_entity_id.c_str(),
                                 attrName, 
                                 [this](const std::string &state) {
                                     
