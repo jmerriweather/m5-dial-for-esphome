@@ -180,7 +180,8 @@ namespace esphome
                 }
 
                 void setReceivedValue(int val){
-                    this->value = val;
+                    //this->value = val;
+                    this->setValue(val);
                 }
 
 
