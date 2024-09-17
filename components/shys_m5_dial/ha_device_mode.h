@@ -12,11 +12,11 @@ namespace esphome
         class HaDevice;
         class HaDeviceMode {
             protected:
-                float value = 0;
-                float minValue = 0;
-                float maxValue = 100;
+                int value = 0;
+                int minValue = 0;
+                int maxValue = 100;
 
-                float rotaryStepWidth = 10;
+                int rotaryStepWidth = 10;
 
                 int apiSendDelay = 1000;
                 int apiSendLock = 2000;
@@ -51,7 +51,7 @@ namespace esphome
                 }
 
                 void raiseCurrentValue(){
-                    float newValue = this->getValue() + rotaryStepWidth;
+                    int newValue = this->getValue() + rotaryStepWidth;
                     newValue = getNextToRotaryStepwidth(newValue);
 
                     if(newValue > this->maxValue){
@@ -62,7 +62,7 @@ namespace esphome
                 }
 
                 void reduceCurrentValue(){
-                    float newValue = this->getValue() - rotaryStepWidth;
+                    int newValue = this->getValue() - rotaryStepWidth;
                     newValue = getNextToRotaryStepwidth(newValue);
 
                     if(newValue >= this->minValue){
@@ -72,9 +72,9 @@ namespace esphome
                     }
                 }
 
-                int getNextToRotaryStepwidth(float val){
+                int getNextToRotaryStepwidth(int val){
                     if(rotaryStepWidth > 1){
-                        float rst = (val % rotaryStepWidth);
+                        int rst = (val % rotaryStepWidth);
                         if(rst >= (rotaryStepWidth/2)){
                             val += rotaryStepWidth-rst;
                         } else {
@@ -84,31 +84,31 @@ namespace esphome
                     return val;
                 }
 
-                float getValueForXPosition(float x){
+                uint16_t getValueForXPosition(uint16_t x){
                     return map(x, 0, M5Dial.Display.width(), this->minValue, this->maxValue);
                 }
 
-                float getValueForYPosition(float y){
+                uint16_t getValueForYPosition(uint16_t y){
                     return this->maxValue - map(y, 0, M5Dial.Display.height(), this->minValue, this->maxValue) + this->minValue;
                 }
 
-                float getDisplayPositionX(float currentValue){
+                uint16_t getDisplayPositionX(uint16_t currentValue){
                     return map(currentValue, this->minValue, this->maxValue, 0, M5Dial.Display.width());
                 }
 
-                float getDisplayPositionY(float currentValue){
+                uint16_t getDisplayPositionY(uint16_t currentValue){
                     return M5Dial.Display.height() - map(currentValue, this->minValue, this->maxValue, 0, M5Dial.Display.height());
                 }
 
 
-                bool defaultOnTouch(M5DialDisplay& display, float x, float y)  {
+                bool defaultOnTouch(M5DialDisplay& display, uint16_t x, uint16_t y)  {
                     if(y > display.getHeight() * .97){
                         y = display.getHeight();
                     } else if (y < display.getHeight() * .03){
                         y = 0;
                     }
                     
-                    float result = this->getValueForYPosition(y);
+                    uint16_t result = this->getValueForYPosition(y);
                     result = getNextToRotaryStepwidth(result);
 
                     this->setValue(result); 
@@ -140,7 +140,7 @@ namespace esphome
                     return displayRefreshNeeded;
                 }
 
-                virtual bool onTouch(M5DialDisplay& display, float x, float y) {
+                virtual bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) {
                     return false;
                 }
 
@@ -169,11 +169,11 @@ namespace esphome
                     }
                 }
 
-                virtual float getValue(){
+                virtual int getValue(){
                     return this->value;
                 }
 
-                void setValue(float val){
+                void setValue(int val){
                     this->value = val;
                     this->lastValueUpdate = esphome::millis();
                     this->currentValueModified = true;
@@ -184,25 +184,25 @@ namespace esphome
                     this->currentValueModified = true;
                 }
 
-                void setReceivedValue(float val){
+                void setReceivedValue(int val){
                     //this->value = val;
                     this->setValue(val);
                 }
 
 
-                float getMinValue(){
+                int getMinValue(){
                     return this->minValue;
                 }
 
-                void setMinValue(float val){
+                void setMinValue(int val){
                     this->minValue = val;
                 }
 
-                float getMaxValue(){
+                int getMaxValue(){
                     return this->maxValue;
                 }
 
-                void setMaxValue(float val){
+                void setMaxValue(int val){
                     this->maxValue = val;
                 }
 
@@ -210,7 +210,7 @@ namespace esphome
                     return this->currentValueModified;
                 }
 
-                void setRotaryStepWidth(float stepWidth){
+                void setRotaryStepWidth(int stepWidth){
                     this->rotaryStepWidth = stepWidth;
                 }
 

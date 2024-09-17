@@ -16,14 +16,14 @@ namespace esphome
                     this->hvac_mode = newMode;
                 }
 
-                void sendValueToHomeAssistant(float value) override {
+                void sendValueToHomeAssistant(int value) override {
                     haApi.setClimateTemperature(this->device.getEntityId(), value);
                 }
 
                 void showTemperatureMenu(M5DialDisplay& display){
                     LovyanGFX* gfx = display.getGfx();
 
-                    float currentValue = getValue();
+                    uint16_t currentValue = getValue();
 
                     uint16_t height = gfx->height();
                     uint16_t width  = gfx->width();
@@ -93,14 +93,14 @@ namespace esphome
                             this->setReceivedValue(0);
                             ESP_LOGD("HA_API", "No Temperature value in %s for %s", state.c_str(), this->device.getEntityId().c_str());
                         } else {
-                            this->setReceivedValue(val.value());
-                            ESP_LOGI("HA_API", "Got Temperature value %i for %s", val.value(), this->device.getEntityId().c_str());
+                            this->setReceivedValue(int(val.value()));
+                            ESP_LOGI("HA_API", "Got Temperature value %i for %s", int(val.value()), this->device.getEntityId().c_str());
                         }
                     });
                 }
 
 
-                bool onTouch(M5DialDisplay& display, float x, float y) override {
+                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
                     return defaultOnTouch(display, x, y);        
                 }
 

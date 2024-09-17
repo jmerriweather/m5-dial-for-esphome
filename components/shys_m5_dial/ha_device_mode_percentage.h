@@ -44,7 +44,7 @@ namespace esphome
                     showPercentageMenu(display);
                 }
                 
-                bool onTouch(M5DialDisplay& display, float x, float y) override {
+                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
                     return this->defaultOnTouch(display, x, y);        
                 }
 

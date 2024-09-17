@@ -7,7 +7,7 @@ namespace esphome
     {
         class HaDeviceModeLightTunableWhite: public esphome::shys_m5_dial::HaDeviceMode {
             protected:
-                void sendValueToHomeAssistant(float value) override {
+                void sendValueToHomeAssistant(int value) override {
                     haApi.turnLightOnWhite(this->device.getEntityId(), value);
                 }
 
@@ -104,7 +104,7 @@ namespace esphome
                             return;
                         }
 
-                        auto val = parse_number<float>(state);
+                        auto val = parse_number<int>(state);
                         if (!val.has_value()) {
                             this->setReceivedValue(0);
                             ESP_LOGD("HA_API", "No Kelvin value in %s for %s", state.c_str(), this->device.getEntityId().c_str());
@@ -115,7 +115,7 @@ namespace esphome
                     });
                 }
                 
-                bool onTouch(M5DialDisplay& display, float x, float y) override {
+                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
                     return defaultOnTouch(display, x, y);        
                 }
 

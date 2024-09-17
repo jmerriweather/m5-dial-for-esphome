@@ -23,7 +23,7 @@ namespace esphome
                         if(this->isValueModified()){
                             return;
                         }
-                        auto val = parse_number<float>(state);
+                        auto val = parse_number<int>(state);
                         if (!val.has_value()) {
                             this->setReceivedValue(0);
                             ESP_LOGD("HA_API", "No Position value in %s for %s", state.c_str(), this->device.getEntityId().c_str());
