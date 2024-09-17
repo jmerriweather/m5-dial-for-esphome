@@ -21,7 +21,7 @@ namespace esphome
                 void showTemperatureMenu(M5DialDisplay& display){
                     LovyanGFX* gfx = display.getGfx();
 
-                    uint16_t currentValue = getValue();
+                    float currentValue = getValue();
 
                     uint16_t height = gfx->height();
                     uint16_t width  = gfx->width();
@@ -167,15 +167,16 @@ namespace esphome
                             this->setReceivedValue(0);
                             ESP_LOGD("HA_API", "No Temperature value in %s for %s", state.c_str(), this->device.getEntityId().c_str());
                         } else {
-                            this->setReceivedValue(int(val.value()));
-                            ESP_LOGI("HA_API", "Got Temperature value %i for %s", int(val.value()), this->device.getEntityId().c_str());
+                            this->setReceivedValue(val.value());
+                            ESP_LOGI("HA_API", "Got Temperature value %i for %s", val.value(), this->device.getEntityId().c_str());
                         }
                     });
                 }
 
 
-                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
-                    return defaultOnTouch(display, x, y);        
+                bool onTouch(M5DialDisplay& display, float x, float y) override {
+                    //return defaultOnTouch(display, x, y);        
+                    return false;
                 }
 
                 bool onRotary(M5DialDisplay& display, const char * direction) override {
