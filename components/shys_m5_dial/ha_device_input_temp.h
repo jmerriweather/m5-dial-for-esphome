@@ -34,6 +34,12 @@ namespace esphome
                         if (temp_mode.containsKey("rotary_step_width")) {
                             modeTemp->setRotaryStepWidth(temp_mode["rotary_step_width"].as<int>());
                         }
+                        if (temp_mode.containsKey("min_temperature")) {
+                            modeTemp->setMinTemperature(temp_mode["min_temperature"].as<int>());
+                        }
+                        if (temp_mode.containsKey("max_temperature")) {
+                            modeTemp->setMaxTemperature(temp_mode["max_temperature"].as<int>());
+                        }
                     }     
 
                     this->addMode(modeTemp);               

@@ -10,6 +10,8 @@ namespace esphome
                 bool refreshNeeded = true;
 
                 float current_temperature = 0;
+                int max_temperature = 40;
+                int min_temperature = 0;
 
                 std::string automation_entity_id = "";
                 std::string currentTemperatureEntityID = "";
@@ -95,6 +97,22 @@ namespace esphome
                     automation_entity_id = newMode;
                 }
 
+                int getMinTemperature(){
+                    return min_temperature;
+                }
+
+                int getMaxTemperature(){
+                    return max_temperature;
+                }
+
+                void setMinTemperature(int newMin){
+                    min_temperature = newMin;
+                }
+
+                void setMaxTemperature(int newMax){
+                    max_temperature = newMax;
+                }
+
                 HaDeviceModeInputTemperature(HaDevice& device) : HaDeviceMode(device){
                     this->maxValue = 40;
                 }
@@ -171,7 +189,19 @@ namespace esphome
                 }
 
                 bool onRotary(M5DialDisplay& display, const char * direction) override {
-                    return defaultOnRotary(display, direction);
+                    //return defaultOnRotary(display, direction);
+
+                    if (strcmp(direction, ROTARY_LEFT)==0){
+                        if(this->getValue() > min_temperature){
+                            this->reduceCurrentValue();
+                        }
+                    } else if (strcmp(direction, ROTARY_RIGHT)==0){
+                        if(this->getValue() < max_temperature){
+                            this->raiseCurrentValue();
+                        }
+                    }
+
+                    return true;
                 }
 
                 bool onButton(M5DialDisplay& display, const char * clickType) override {
