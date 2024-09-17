@@ -134,9 +134,21 @@ namespace esphome
                                 [this](const std::string &state) {
                                     
                         ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
+                        
+                        auto val = parse_number<float>(state);
+                        if (!val.has_value()) {
+                            current_temperature = 0;
+                            ESP_LOGD("HA_API", "No Temperature value in %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
+                        } else {
+                            float new_val = val.value();
+                            if(new_val != current_temperature){
+                                current_temperature = new_val;
+                                refreshNeeded = true;
+                                ESP_LOGI("HA_API", "Got Temperature value %i for %s", new_val, currentTemperatureEntityID.c_str());
+                            }
+                        }
 
-                        current_temperature = state;
-                        refreshNeeded = true;
+
                     });
 
                     std::string attrNameTemp = "";
