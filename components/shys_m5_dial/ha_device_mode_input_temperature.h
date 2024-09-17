@@ -40,12 +40,12 @@ namespace esphome
 
                     if(strcmp(automation_state.c_str(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
-                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
+                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 5, RED);
                     } else {
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , GREEN);
-                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, DARKGREEN);
+                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 5, RED);
                     }
 
                     display.setFontsize(3);
@@ -54,6 +54,10 @@ namespace esphome
                                     height / 2 - 30);                        
                     
                     display.setFontsize(1);
+                    
+                    gfx->drawString(String(current_temperature).c_str(),
+                                    width / 2 - 30,
+                                    height / 2 - 30);   
                     std::string name;
                     name.append(this->device.getName());
                     name.append(" (");
@@ -175,7 +179,8 @@ namespace esphome
 
 
                 bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
-                    return defaultOnTouch(display, x, y);        
+                    //return defaultOnTouch(display, x, y);        
+                    return false;
                 }
 
                 bool onRotary(M5DialDisplay& display, const char * direction) override {
