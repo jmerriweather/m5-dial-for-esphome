@@ -114,14 +114,14 @@ namespace esphome
                 }
 
                 void registerHAListener() override {        
-                    ESP_LOGI("HA_API", "Input Temperature automation id %i", this->getAutomationEntityID());        
+                    ESP_LOGI("HA_API", "Input Temperature automation id %s", automation_entity_id);        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
                                 automation_entity_id.c_str(),
                                 attrName, 
                                 [this](const std::string &state) {
                                     
-                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), automation_entity_id.c_str());
+                        ESP_LOGI("HA_API", "Got automation value %s for %s", state.c_str(), automation_entity_id.c_str());
 
                         automation_state = state;
                         refreshNeeded = true;
@@ -133,18 +133,18 @@ namespace esphome
                                 attrName2, 
                                 [this](const std::string &state) {
                                     
-                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
+                        ESP_LOGI("HA_API", "Got current temperature value %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
                         
                         auto val = parse_number<float>(state);
                         if (!val.has_value()) {
                             current_temperature = 0;
-                            ESP_LOGD("HA_API", "No Temperature value in %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
+                            ESP_LOGD("HA_API", "No current temperature value in %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
                         } else {
                             float new_val = val.value();
                             if(new_val != current_temperature){
                                 current_temperature = new_val;
                                 refreshNeeded = true;
-                                ESP_LOGI("HA_API", "Got Temperature value %i for %s", new_val, currentTemperatureEntityID.c_str());
+                                ESP_LOGI("HA_API", "Got current temperature value %i for %s", new_val, currentTemperatureEntityID.c_str());
                             }
                         }
 
