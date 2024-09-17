@@ -167,7 +167,7 @@ namespace esphome
                     return true;
                 }
 
-                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
+                bool onTouch(M5DialDisplay& display, float x, float y) override {
                     ESP_LOGI("TOUCH", "Touch %i / %i for %s", x, y, this->device.getEntityId().c_str());
 
                     LovyanGFX* gfx = display.getGfx();

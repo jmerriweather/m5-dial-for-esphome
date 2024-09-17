@@ -6,7 +6,7 @@ namespace esphome
     {
         class HaDeviceModeLightOnOff: public esphome::shys_m5_dial::HaDeviceMode {
             protected:
-                void sendValueToHomeAssistant(int value) override {
+                void sendValueToHomeAssistant(float value) override {
                     if(getValue()<=0){
                         haApi.turnLightOff(this->device.getEntityId());
                     } else {
@@ -17,7 +17,7 @@ namespace esphome
                 void showOnOffMenu(M5DialDisplay& display){
                     LovyanGFX* gfx = display.getGfx();
                     
-                    uint16_t currentValue = getValue();
+                    float currentValue = getValue();
 
                     uint16_t height = gfx->height();
                     uint16_t width  = gfx->width();
@@ -64,14 +64,14 @@ namespace esphome
                             return;
                         }
 
-                        int newState = strcmp("on", state.c_str())==0?1:0;
+                        float newState = strcmp("on", state.c_str())==0?1:0;
 
                         this->setReceivedValue(newState);
                         ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
                     });
                 }
 
-                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
+                bool onTouch(M5DialDisplay& display, float x, float y) override {
                     haApi.toggleLight(this->device.getEntityId());
                     return true;
                 }

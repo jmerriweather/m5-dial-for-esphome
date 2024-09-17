@@ -7,7 +7,7 @@ namespace esphome
     {
         class HaDeviceModeLightColor: public esphome::shys_m5_dial::HaDeviceMode {
             protected:
-                void sendValueToHomeAssistant(int value) override {
+                void sendValueToHomeAssistant(float value) override {
                     haApi.turnLightOn(this->device.getEntityId(), -1, value);
                 }
 
@@ -106,7 +106,7 @@ namespace esphome
                 void refreshColorMenu(M5DialDisplay& display){
                     LovyanGFX* gfx = display.getGfx();
 
-                    int currentValue = getValue();
+                    float currentValue = getValue();
                     uint32_t complementary_color = getComplementaryByDegree(currentValue);
 
                     int height = gfx->height();
@@ -138,7 +138,7 @@ namespace esphome
                 void showColorMenu(M5DialDisplay& display){
                     LovyanGFX* gfx = display.getGfx();
 
-                    int currentValue = getValue();
+                    float currentValue = getValue();
                     uint32_t complementary_color = getComplementaryByDegree(currentValue);
 
                     int height = gfx->height();
@@ -203,7 +203,7 @@ namespace esphome
                     });
                 }
                 
-                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
+                bool onTouch(M5DialDisplay& display, float x, float y) override {
                     uint16_t degree = display.getDegByCoord(x, y);
                     setValue(degree);
                     ESP_LOGD("TOUCH", "Neuen Farbwert auf %d gesetzt", degree);

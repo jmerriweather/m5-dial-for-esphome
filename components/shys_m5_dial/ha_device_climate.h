@@ -22,7 +22,7 @@ namespace esphome
                         JsonObject temp_mode = this->modeConfig["temp_mode"];
 
                         if (temp_mode.containsKey("rotary_step_width")) {
-                            modeTemp->setRotaryStepWidth(temp_mode["rotary_step_width"].as<int>());
+                            modeTemp->setRotaryStepWidth(temp_mode["rotary_step_width"].as<float>());
                         }
                     }                    
                 }

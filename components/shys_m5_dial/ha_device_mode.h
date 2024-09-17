@@ -72,7 +72,7 @@ namespace esphome
                     }
                 }
 
-                int getNextToRotaryStepwidth(int val){
+                int getNextToRotaryStepwidth(float val){
                     if(rotaryStepWidth > 1){
                         float rst = (val % rotaryStepWidth);
                         if(rst >= (rotaryStepWidth/2)){
