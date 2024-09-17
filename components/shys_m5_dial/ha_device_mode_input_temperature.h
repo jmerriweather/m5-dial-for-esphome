@@ -49,14 +49,11 @@ namespace esphome
                                     height / 2 - 30);                        
                     
                     display.setFontsize(1);
-                    
-                    gfx->drawString(String(current_temperature).c_str(),
-                                    width / 2 - 10,
-                                    height / 2 - 30);   
+                     
                     std::string name;
                     name.append(this->device.getName());
                     name.append(" (");
-                    name.append(this->getAutomationState());
+                    name.append(String(current_temperature).c_str());
                     name.append(")");
                     gfx->drawString(name.c_str(),
                                     width / 2,
