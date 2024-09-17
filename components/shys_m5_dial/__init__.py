@@ -163,7 +163,7 @@ CONFIG_SCHEMA = cv.Schema({
                 cv.Optional(CONF_DEVICE_INPUT_TEMPS_AUTOMATION): cv.string,
                 cv.Optional(CONF_DEVICE_INPUT_TEMPS_CURRENT): cv.string,
                 cv.Optional(CONF_DEVICE_CLIMATE_TEMP_MODE, default=dict()): cv.All(dict({
-                    cv.Optional(CONF_ROTARY_STEP_WIDTH, default=DEFAULT_CLIMATE_ROTARY_STEP_WIDTH): cv.int_range(1, 500),
+                    cv.Optional(CONF_ROTARY_STEP_WIDTH, default=DEFAULT_CLIMATE_ROTARY_STEP_WIDTH): cv.float_range(0.1, 100.0),
                     cv.Optional(CONF_DEVICE_MODE_TEMP_MIN_TEMP, default=DEFAULT_WHITE_MIN_TEMP): cv.int_range(0, 500),
                     cv.Optional(CONF_DEVICE_MODE_TEMP_MAX_TEMP, default=DEFAULT_WHITE_MAX_TEMP): cv.int_range(0, 500)
                 }))
