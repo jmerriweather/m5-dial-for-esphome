@@ -51,7 +51,7 @@ namespace esphome
                     display.setFontsize(1);
                     
                     gfx->drawString(String(current_temperature).c_str(),
-                                    width / 2 + 30,
+                                    width / 2 + 60,
                                     height / 2 - 30);   
                     std::string name;
                     name.append(this->device.getName());
