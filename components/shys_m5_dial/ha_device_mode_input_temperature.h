@@ -30,13 +30,6 @@ namespace esphome
                     gfx->setTextDatum(middle_center);
                     
                     gfx->startWrite();                      // Secure SPI bus
-                    // int currentValue_div = this->getDisplayPositionY(currentValue);
-                    // float currentTemperature_div = this->getDisplayPositionY(currentTemperature);
-                    // if(currentTemperature > currentValue){
-                    //     currentValue_div = this->getDisplayPositionY(currentValue) - this->getDisplayPositionY(currentTemperature);
-                    // } else {
-                    //     currentValue_div = this->getDisplayPositionY(currentValue) + this->getDisplayPositionY(currentTemperature);
-                    // }
 
                     if(strcmp(automation_state.c_str(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
@@ -175,12 +168,6 @@ namespace esphome
                             ESP_LOGI("HA_API", "Got Temperature value %i for %s", int(val.value()), this->device.getEntityId().c_str());
                         }
                     });
-                }
-
-
-                bool onTouch(M5DialDisplay& display, uint16_t x, uint16_t y) override {
-                    //return defaultOnTouch(display, x, y);        
-                    return false;
                 }
 
                 bool onRotary(M5DialDisplay& display, const char * direction) override {
