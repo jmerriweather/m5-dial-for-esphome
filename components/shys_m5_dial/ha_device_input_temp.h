@@ -16,18 +16,16 @@ namespace esphome
                 void init() override {
                     ESP_LOGD("HA_DEVICE", "Init Input Temp: %s", this->getEntityId().c_str());
 
-                    this->addMode(modeTemp);
-
                     if (this->modeConfig.containsKey("automation_entity")) {
                         std::string automation_entity = this->modeConfig["automation_entity"];
                         ESP_LOGD("HA_DEVICE", "Automation-Entity: %s", automation_entity.c_str());
-                        modeTemp->setAutomationEntityID(automation_entity);
+                        modeTemp->setAutomationEntityID(automation_entity.c_str());
                     }
 
                     if (this->modeConfig.containsKey("current_entity")) {
                         std::string current_entity = this->modeConfig["current_entity"];
                         ESP_LOGD("HA_DEVICE", "Current-Entity: %s", current_entity.c_str());
-                        modeTemp->setCurrentTemperatureEntityID(current_entity);
+                        modeTemp->setCurrentTemperatureEntityID(current_entity.c_str());
                     }
 
                     if (this->modeConfig.containsKey("temp_mode")) {
@@ -36,7 +34,9 @@ namespace esphome
                         if (temp_mode.containsKey("rotary_step_width")) {
                             modeTemp->setRotaryStepWidth(temp_mode["rotary_step_width"].as<int>());
                         }
-                    }                    
+                    }     
+
+                    this->addMode(modeTemp);               
                 }
 
         };
