@@ -9,7 +9,9 @@ namespace esphome
                 std::string automation_state = "";
                 bool refreshNeeded = true;
 
-                std::string automation_entity_id = "input_boolean.living_room_ac_automation";
+                float currentTemperature = 0;
+
+                std::string automation_entity_id = "";
 
                 void sendValueToHomeAssistant(int value) override {
                     haApi.setInputNumber(this->device.getEntityId(), value);
@@ -27,12 +29,21 @@ namespace esphome
                     gfx->setTextDatum(middle_center);
                     
                     gfx->startWrite();                      // Secure SPI bus
+                    // int currentValue_div = this->getDisplayPositionY(currentValue);
+                    // float currentTemperature_div = this->getDisplayPositionY(currentTemperature);
+                    // if(currentTemperature > currentValue){
+                    //     currentValue_div = this->getDisplayPositionY(currentValue) - this->getDisplayPositionY(currentTemperature);
+                    // } else {
+                    //     currentValue_div = this->getDisplayPositionY(currentValue) + this->getDisplayPositionY(currentTemperature);
+                    // }
 
                     if(strcmp(automation_state.c_str(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
+                        gfx->fillRect(0, this->getDisplayPositionY(currentTemperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
                     } else {
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , GREEN);
+                        gfx->fillRect(0, this->getDisplayPositionY(currentTemperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, DARKGREEN);
                     }
 
@@ -68,6 +79,14 @@ namespace esphome
 
                 std::string getAutomationEntityID(){
                     return automation_entity_id;
+                }
+
+                void setCurrentTemperature(float newTemp){
+                    currentTemperature = newTemp;
+                }
+
+                float getCurrentTemperature(){
+                    return currentTemperature;
                 }
 
                 void setAutomationEntityID(const std::string& newMode){

@@ -22,6 +22,10 @@ namespace esphome
                         modeTemp->setAutomationEntityID(this->modeConfig["automation_entity"].as<std::string>());
                     }
 
+                    if (this->modeConfig.containsKey("current_entity")) {
+                        modeTemp->setCurrentTemperature(this->modeConfig["current_entity"].as<float>());
+                    }
+
                     if (this->modeConfig.containsKey("temp_mode")) {
                         JsonObject temp_mode = this->modeConfig["temp_mode"];
 
