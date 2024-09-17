@@ -129,7 +129,6 @@ namespace esphome
                 }
 
                 void registerHAListener() override {        
-                    ESP_LOGI("HA_API", "Input Temperature automation id %s", automation_entity_id);        
                     std::string attrName = "";
                     api::global_api_server->subscribe_home_assistant_state(
                                 automation_entity_id.c_str(),
