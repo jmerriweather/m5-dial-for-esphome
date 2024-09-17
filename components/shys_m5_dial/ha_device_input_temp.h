@@ -19,11 +19,15 @@ namespace esphome
                     this->addMode(modeTemp);
 
                     if (this->modeConfig.containsKey("automation_entity")) {
-                        modeTemp->setAutomationEntityID(this->modeConfig["automation_entity"]);
+                        str::string automation_entity = this->modeConfig["automation_entity"];
+                        ESP_LOGD("HA_DEVICE", "Automation-Entity: %s", automation_entity.c_str());
+                        modeTemp->setAutomationEntityID(automation_entity);
                     }
 
                     if (this->modeConfig.containsKey("current_entity")) {
-                        modeTemp->setCurrentTemperatureEntityID(this->modeConfig["current_entity"]);
+                        str::string current_entity = this->modeConfig["current_entity"];
+                        ESP_LOGD("HA_DEVICE", "Current-Entity: %s", current_entity.c_str());
+                        modeTemp->setCurrentTemperatureEntityID(current_entity);
                     }
 
                     if (this->modeConfig.containsKey("temp_mode")) {
