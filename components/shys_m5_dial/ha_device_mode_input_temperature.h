@@ -9,9 +9,10 @@ namespace esphome
                 std::string automation_state = "";
                 bool refreshNeeded = true;
 
-                float currentTemperature = 0;
+                float current_temperature = 0;
 
                 std::string automation_entity_id = "";
+                std::string currentTemperatureEntityID = "";
 
                 void sendValueToHomeAssistant(int value) override {
                     haApi.setInputNumber(this->device.getEntityId(), value);
@@ -39,11 +40,11 @@ namespace esphome
 
                     if(strcmp(automation_state.c_str(), "off")==0){
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , DARKGREY);
-                        gfx->fillRect(0, this->getDisplayPositionY(currentTemperature), width, 20, RED);
+                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, LIGHTGREY);
                     } else {
                         gfx->fillRect(0, 0, width, this->getDisplayPositionY(currentValue) , GREEN);
-                        gfx->fillRect(0, this->getDisplayPositionY(currentTemperature), width, 20, RED);
+                        gfx->fillRect(0, this->getDisplayPositionY(current_temperature), width, 20, RED);
                         gfx->fillRect(0, this->getDisplayPositionY(currentValue), width, height, DARKGREEN);
                     }
 
@@ -82,11 +83,15 @@ namespace esphome
                 }
 
                 void setCurrentTemperature(float newTemp){
-                    currentTemperature = newTemp;
+                    current_temperature = newTemp;
                 }
 
                 float getCurrentTemperature(){
-                    return currentTemperature;
+                    return current_temperature;
+                }
+
+                void setCurrentTemperatureEntityID(const std::string& newMode){
+                    currentTemperatureEntityID = newMode;
                 }
 
                 void setAutomationEntityID(const std::string& newMode){
@@ -116,9 +121,21 @@ namespace esphome
                                 attrName, 
                                 [this](const std::string &state) {
                                     
-                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), this->device.getEntityId().c_str());
+                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), automation_entity_id.c_str());
 
                         automation_state = state;
+                        refreshNeeded = true;
+                    });
+
+                    std::string attrName2 = "";
+                    api::global_api_server->subscribe_home_assistant_state(
+                                currentTemperatureEntityID.c_str(),
+                                attrName2, 
+                                [this](const std::string &state) {
+                                    
+                        ESP_LOGI("HA_API", "Got value %s for %s", state.c_str(), currentTemperatureEntityID.c_str());
+
+                        current_temperature = state;
                         refreshNeeded = true;
                     });
 
