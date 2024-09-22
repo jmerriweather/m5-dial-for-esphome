@@ -184,6 +184,7 @@ namespace esphome
                             this->setReceivedValue(int(val.value()));
                             ESP_LOGI("HA_API", "Got Temperature value %i for %s", int(val.value()), this->device.getEntityId().c_str());
                         }
+                        refreshNeeded = true;
                     });
                 }
 
