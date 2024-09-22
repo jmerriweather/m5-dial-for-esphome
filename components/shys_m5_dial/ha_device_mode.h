@@ -185,8 +185,7 @@ namespace esphome
                 }
 
                 void setReceivedValue(int val){
-                    //this->value = val;
-                    this->setValue(val);
+                    this->value = val;
                 }
 
 
